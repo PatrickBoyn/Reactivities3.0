@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
   state = {
@@ -7,12 +8,10 @@ class App extends Component {
   };
 
   componentDidMount() {
-    this.setState({
-      values: [
-        { id: 1, name: 'Value 101' },
-        { id: 2, name: 'Value 102' },
-        { id: 3, name: 'Value 103' }
-      ]
+    axios.get('/api/values').then(response => {
+      this.setState({
+        values: response.data
+      });
     });
   }
   render() {
@@ -20,7 +19,7 @@ class App extends Component {
       <div className='App'>
         <ul>
           {this.state.values.map((value: any) => (
-            <li>{value.name}</li>
+            <li key={value.id}>{value.name}</li>
           ))}
         </ul>
       </div>
