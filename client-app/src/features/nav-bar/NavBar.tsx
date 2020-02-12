@@ -1,12 +1,13 @@
 import React from 'react';
 import { Menu, Container, Button } from 'semantic-ui-react';
+import { StyledImg } from './navbarStyles';
 
 const NavBar = () => {
   return (
     <Menu fixed='top' inverted>
       <Container>
         <Menu.Item header>
-          <img src='/assets/logo.png' alt='logo' />
+          <StyledImg src='/assets/logo.png' alt='logo' />
           Reactivities
         </Menu.Item>
         <Menu.Item name='Activities' />
