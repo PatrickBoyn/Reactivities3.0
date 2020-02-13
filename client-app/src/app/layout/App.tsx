@@ -17,6 +17,11 @@ const App = () => {
     setSelectedActivity(activities.filter(a => a.id === id)[0]);
   };
 
+  const handleOpenCreateForm = () => {
+    setSelectedActivity(null);
+    setEditMode(true);
+  };
+
   useEffect(() => {
     axios.get<IActivity[]>('/api/activities').then(response => {
       setActivities(response.data);
@@ -25,11 +30,12 @@ const App = () => {
 
   return (
     <Fragment>
-      <Navbar />
+      <Navbar openCreateForm={handleOpenCreateForm} />
       {/* I don't normally use inline styles. */}
       <Container style={{ marginTop: '7em' }}>
         <ActivityDashboard
           activities={activities}
+          setSelectedActivity={setSelectedActivity}
           selectActivity={handleSelectActivity}
           selectedActivity={selectedActivity}
           editMode={editMode}
