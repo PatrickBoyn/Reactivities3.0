@@ -10,7 +10,7 @@ const ActivityDetails: React.FC<IProps> = ({ selectedActivity }) => {
   return (
     <Card fluid>
       <Image
-        src={`assets/categoryImages/${selectedActivity.category}`}
+        src={`/assets/categoryImages/${selectedActivity.category}.jpg`}
         wrapped
         ui={false}
       />
