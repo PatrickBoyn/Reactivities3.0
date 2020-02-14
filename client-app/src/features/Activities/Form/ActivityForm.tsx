@@ -29,6 +29,10 @@ const ActivityForm: React.FC<IProps> = ({
 
   const [activity, setActivity] = useState<IActivity>(initializeForm);
 
+  const handleSubmit = () => {
+    console.log(activity);
+  };
+
   const handleInputChange = (
     event: FormEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -38,7 +42,7 @@ const ActivityForm: React.FC<IProps> = ({
 
   return (
     <Segment clearing>
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <Form.Input
           onChange={handleInputChange}
           name='title'
