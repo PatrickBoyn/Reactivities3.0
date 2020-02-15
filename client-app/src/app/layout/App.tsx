@@ -37,6 +37,11 @@ const App = () => {
 
   useEffect(() => {
     axios.get<IActivity[]>('/api/activities').then(response => {
+      let activities = [];
+      response.data.forEach(activity => {
+        activity.date = activity.date.split('.')[0];
+        activities.push(activity);
+      });
       setActivities(response.data);
     });
   }, []);
