@@ -43,7 +43,9 @@ const App = () => {
   };
 
   const handleDeleteActivity = (id: string) => {
-    setActivities([...activities.filter(a => a.id !== id)]);
+    agent.Activities.delete(id).then(() => {
+      setActivities([...activities.filter(a => a.id !== id)]);
+    });
   };
 
   useEffect(() => {
