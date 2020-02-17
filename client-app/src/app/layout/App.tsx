@@ -5,6 +5,7 @@ import Navbar from '../../features/nav-bar/NavBar';
 import ActivityDashboard from '../../features/Activities/Dashboard/ActivityDashboard';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
+import { SyntheticEvent } from 'react';
 
 const App = () => {
   const [activities, setActivities] = useState<IActivity[]>([]);
@@ -20,6 +21,7 @@ const App = () => {
     setSelectedActivity(activities.filter(a => a.id === id)[0]);
     setEditMode(false);
   };
+  const [target, setTarget] = useState('');
 
   const handleOpenCreateForm = () => {
     setSelectedActivity(null);
@@ -51,8 +53,12 @@ const App = () => {
       .then(() => setSubmitting(false));
   };
 
-  const handleDeleteActivity = (id: string) => {
+  const handleDeleteActivity = (
+    event: SyntheticEvent<HTMLButtonElement>,
+    id: string
+  ) => {
     setSubmitting(true);
+    setTarget(event.currentTarget.name);
     agent.Activities.delete(id)
       .then(() => {
         setActivities([...activities.filter(a => a.id !== id)]);
@@ -91,6 +97,7 @@ const App = () => {
           editActivity={handleEditActivity}
           deleteActivity={handleDeleteActivity}
           submitting={submitting}
+          target={target}
         />
       </Container>
     </Fragment>
