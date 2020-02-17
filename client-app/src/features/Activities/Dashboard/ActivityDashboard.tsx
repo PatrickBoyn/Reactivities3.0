@@ -5,6 +5,7 @@ import ActivityList from './ActivityList';
 import ActivityDetails from '../Details/ActivityDetails';
 import ActivityForm from '../Form/ActivityForm';
 import { SyntheticEvent } from 'react';
+import { observer } from 'mobx-react-lite';
 
 interface IProps {
   activities: IActivity[];
@@ -67,4 +68,4 @@ const ActivityDashboard: React.FC<IProps> = ({
   );
 };
 
-export default ActivityDashboard;
+export default observer(ActivityDashboard);
