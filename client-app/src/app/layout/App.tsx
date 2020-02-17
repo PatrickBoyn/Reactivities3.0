@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
 import { Container } from 'semantic-ui-react';
 import { IActivity } from '../models/activity';
 import Navbar from '../../features/nav-bar/NavBar';
@@ -6,8 +6,11 @@ import ActivityDashboard from '../../features/Activities/Dashboard/ActivityDashb
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
 import { SyntheticEvent } from 'react';
+import ActivityStore from '../../stores/activityStore';
 
 const App = () => {
+  const activityStore = useContext(ActivityStore);
+
   const [activities, setActivities] = useState<IActivity[]>([]);
   const [selectedActivity, setSelectedActivity] = useState<IActivity | null>(
     null
@@ -86,6 +89,7 @@ const App = () => {
       <Navbar openCreateForm={handleOpenCreateForm} />
       {/* I don't normally use inline styles. */}
       <Container style={{ marginTop: '7em' }}>
+        <h1>{activityStore.title}</h1>
         <ActivityDashboard
           activities={activities}
           setSelectedActivity={setSelectedActivity}
