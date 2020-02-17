@@ -4,6 +4,7 @@ import { IActivity } from '../../../app/models/activity';
 import ActivityList from './ActivityList';
 import ActivityDetails from '../Details/ActivityDetails';
 import ActivityForm from '../Form/ActivityForm';
+import { SyntheticEvent } from 'react';
 
 interface IProps {
   activities: IActivity[];
@@ -14,8 +15,9 @@ interface IProps {
   setSelectedActivity: (activity: IActivity | null) => void;
   createActivity: (activity: IActivity) => void;
   editActivity: (activity: IActivity) => void;
-  deleteActivity: (id: string) => void;
+  deleteActivity: (e: SyntheticEvent<HTMLButtonElement>, id: string) => void;
   submitting: boolean;
+  target: string;
 }
 
 const ActivityDashboard: React.FC<IProps> = ({
@@ -28,7 +30,8 @@ const ActivityDashboard: React.FC<IProps> = ({
   createActivity,
   editActivity,
   deleteActivity,
-  submitting
+  submitting,
+  target
 }) => {
   return (
     <Grid>
@@ -38,6 +41,7 @@ const ActivityDashboard: React.FC<IProps> = ({
           selectActivity={selectActivity}
           deleteActivity={deleteActivity}
           submitting={submitting}
+          target={target}
         />
       </GridColumn>
       <GridColumn width={6}>
