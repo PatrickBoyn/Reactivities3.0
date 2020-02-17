@@ -51,7 +51,7 @@ const ActivityList: React.FC<IProps> = ({
                     content='Delete'
                     color='red'
                   />
-                  <Label basic content='Category' />
+                  <Label basic content={activity.category} />
                 </Item.Extra>
               </ItemContent>
             </ItemContent>
