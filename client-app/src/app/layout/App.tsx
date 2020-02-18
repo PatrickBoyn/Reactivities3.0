@@ -21,27 +21,7 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSelectActivity = (id: string) => {
-    setSelectedActivity(activities.filter(a => a.id === id)[0]);
-    setEditMode(false);
-  };
   const [target, setTarget] = useState('');
-
-  const handleOpenCreateForm = () => {
-    setSelectedActivity(null);
-    setEditMode(true);
-  };
-
-  const handleCreateActivity = (activity: IActivity) => {
-    setSubmitting(true);
-    agent.Activities.create(activity)
-      .then(() => {
-        setActivities([...activities, activity]);
-        setSelectedActivity(activity);
-        setEditMode(false);
-      })
-      .then(() => setSubmitting(false));
-  };
 
   const handleEditActivity = (activity: IActivity) => {
     setSubmitting(true);
@@ -79,15 +59,12 @@ const App = () => {
 
   return (
     <Fragment>
-      <Navbar openCreateForm={handleOpenCreateForm} />
+      <Navbar />
       {/* I don't normally use inline styles. */}
       <Container style={{ marginTop: '7em' }}>
         <ActivityDashboard
           activities={activityStore.activities}
-          setSelectedActivity={setSelectedActivity}
-          selectActivity={handleSelectActivity}
           setEditMode={setEditMode}
-          createActivity={handleCreateActivity}
           editActivity={handleEditActivity}
           deleteActivity={handleDeleteActivity}
           submitting={submitting}
