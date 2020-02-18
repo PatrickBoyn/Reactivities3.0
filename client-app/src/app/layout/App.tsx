@@ -6,7 +6,7 @@ import ActivityDashboard from '../../features/Activities/Dashboard/ActivityDashb
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
 import { SyntheticEvent } from 'react';
-import ActivityStore from '../../stores/activityStore';
+import ActivityStore from '../stores/activityStore';
 import { observer } from 'mobx-react-lite';
 
 const App = () => {
@@ -86,8 +86,6 @@ const App = () => {
           activities={activityStore.activities}
           setSelectedActivity={setSelectedActivity}
           selectActivity={handleSelectActivity}
-          selectedActivity={selectedActivity}
-          editMode={editMode}
           setEditMode={setEditMode}
           createActivity={handleCreateActivity}
           editActivity={handleEditActivity}
