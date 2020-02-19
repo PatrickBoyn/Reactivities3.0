@@ -23,7 +23,6 @@ interface IProps {
 const ActivityDashboard: React.FC<IProps> = ({
   setEditMode,
   setSelectedActivity,
-  createActivity,
   editActivity,
   deleteActivity,
   submitting,
@@ -53,7 +52,6 @@ const ActivityDashboard: React.FC<IProps> = ({
             key={(selectedActivity && selectedActivity.id) || 0}
             activity={selectedActivity!}
             setEditMode={setEditMode}
-            createActivity={createActivity}
             editActivity={editActivity}
             submitting={submitting}
           />
