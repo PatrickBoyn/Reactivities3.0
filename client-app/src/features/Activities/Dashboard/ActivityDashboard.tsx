@@ -3,7 +3,6 @@ import { Grid, GridColumn } from 'semantic-ui-react';
 import ActivityList from './ActivityList';
 import ActivityDetails from '../Details/ActivityDetails';
 import ActivityForm from '../Form/ActivityForm';
-import { SyntheticEvent } from 'react';
 import { observer } from 'mobx-react-lite';
 import ActivityStore from '../../../app/stores/activityStore';
 
