@@ -63,8 +63,8 @@ const App = () => {
       {/* I don't normally use inline styles. */}
       <Container style={{ marginTop: '7em' }}>
         <ActivityDashboard
-          activities={activityStore.activities}
           setEditMode={setEditMode}
+          setSelectedActivity={setSelectedActivity}
           editActivity={handleEditActivity}
           deleteActivity={handleDeleteActivity}
           submitting={submitting}
