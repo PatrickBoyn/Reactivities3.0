@@ -15,6 +15,7 @@ const ActivityDetails: React.FC<IProps> = ({
 }) => {
   const activityStore = useContext(ActivityStore);
   const { selectedActivity: activity } = activityStore;
+
   return (
     <Card fluid>
       <Image
