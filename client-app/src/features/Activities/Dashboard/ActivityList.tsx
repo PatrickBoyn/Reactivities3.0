@@ -7,7 +7,6 @@ import {
   Label,
   Segment
 } from 'semantic-ui-react';
-import { IActivity } from '../../../app/models/activity';
 import { SyntheticEvent } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
@@ -29,11 +28,11 @@ const ActivityList: React.FC<IProps> = ({
 }) => {
   const activityStore = useContext(ActivityStore);
 
-  const { activities, selectActivity } = activityStore;
+  const { activitiesByDate, selectActivity } = activityStore;
   return (
     <Segment clearing>
       <ItemGroup divided>
-        {activities.map(activity => (
+        {activitiesByDate.map(activity => (
           <Item key={activity.id}>
             <ItemContent>
               <ItemContent>
