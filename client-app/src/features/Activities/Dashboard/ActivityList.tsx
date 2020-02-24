@@ -17,7 +17,6 @@ const ActivityList: React.FC = () => {
 
   const {
     activitiesByDate,
-    selectActivity,
     deleteActivity,
     submitting,
     target
