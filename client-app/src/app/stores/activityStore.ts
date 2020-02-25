@@ -94,7 +94,8 @@ class ActivityStore {
     this.submitting = true;
     try {
       await agent.Activities.update(activity);
-      runInAction('Edit Activitys', () => {
+
+      runInAction('Edit Activities', () => {
         this.activityRegistry.set(activity.id, activity);
         this.activity = activity;
         this.editMode = false;
