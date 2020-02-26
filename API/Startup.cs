@@ -1,4 +1,5 @@
 using Application.Activities;
+using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,7 +25,10 @@ namespace API
         {
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddDbContext<DataContext>(o => { o.UseSqlite(Configuration.GetConnectionString("DefaultConnection")); });
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(cfg =>
+            {
+                cfg.RegisterValidatorsFromAssemblyContaining<Create>();
+            });
             services.AddCors(o =>
             {
                 o.AddPolicy("CorsPolicy", policy =>
