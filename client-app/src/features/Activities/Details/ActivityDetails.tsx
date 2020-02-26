@@ -31,7 +31,7 @@ const ActivityDetails: React.FC<RouteComponentProps<DetailParams>> = ({
     <Grid>
       <Grid.Column width={10}>
         <DetailsHeader activity={activity} />
-        <DetailsInfo />
+        <DetailsInfo activity={activity} />
         <DetailsChat />
       </Grid.Column>
       <Grid.Column width={6}>
