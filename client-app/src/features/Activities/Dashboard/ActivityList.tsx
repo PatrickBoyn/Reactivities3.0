@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { ItemGroup, Segment, Label } from 'semantic-ui-react';
+import { ItemGroup, Label } from 'semantic-ui-react';
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import ActivityStore from '../../../app/stores/activityStore';
