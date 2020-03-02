@@ -8,7 +8,10 @@ const sleep = (ms: number) => (response: AxiosResponse) =>
     setTimeout(() => resolve(response), ms)
   );
 
-// TODO: Remove when in production mode.
+axios.interceptors.response.use(undefined, error => {
+  console.log(error.response);
+});
+
 const responseBody = (response: AxiosResponse) => response.data;
 
 const requests = {
