@@ -9,7 +9,9 @@ const sleep = (ms: number) => (response: AxiosResponse) =>
   );
 
 axios.interceptors.response.use(undefined, error => {
-  console.log(error.response);
+  if (error.response.status === 404) {
+    throw error.response;
+  }
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
