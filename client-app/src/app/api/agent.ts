@@ -11,6 +11,9 @@ const sleep = (ms: number) => (response: AxiosResponse) =>
   );
 
 axios.interceptors.response.use(undefined, error => {
+  if (error.message === 'Network Error' && !error.response) {
+    toast.error(error.message + ' Make sure API is running.');
+  }
   const { status, data, config } = error.response;
   if (status === 404) {
     history.push('/notfound');
