@@ -82,9 +82,10 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
       <Grid.Column width={10}>
         <Segment clearing>
           <FinalForm
+            validate={validate}
             initialValues={activity}
             onSubmit={handleFinalFormSubmit}
-            render={({ handleSubmit }) => (
+            render={({ handleSubmit, invalid, pristine }) => (
               <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name='title'
@@ -136,7 +137,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 />
                 <Button
                   loading={submitting}
-                  disabled={loading}
+                  disabled={loading || invalid || pristine}
                   floated='right'
                   positive
                   type='submit'
