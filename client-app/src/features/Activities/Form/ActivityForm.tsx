@@ -34,12 +34,13 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
   } = activityStore;
 
   const [activity, setActivity] = useState(new ActivityFormValues());
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (match.params.id) {
-      loadActivity(match.params.id).then(activity =>
-        setActivity(new ActivityFormValues(activity))
-      );
+      setLoading(true);
+      loadActivity(match.params.id)
+        .then(activity => setActivity(new ActivityFormValues(activity)))
+        .finally(() => setLoading(false));
     }
   }, [loadActivity, match.params.id]);
 
@@ -58,7 +59,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
             initialValues={activity}
             onSubmit={handleFinalFormSubmit}
             render={({ handleSubmit }) => (
-              <Form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit} loading={loading}>
                 <Field
                   name='title'
                   placeholder='Title'
@@ -109,6 +110,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 />
                 <Button
                   loading={submitting}
+                  disabled={loading}
                   floated='right'
                   positive
                   type='submit'
@@ -117,6 +119,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
                 <Button
                   onClick={() => history.push(`/activities/${activity.id}`)}
                   floated='right'
+                  disabled={loading}
                   type='button'
                   content='Cancel'
                 />
