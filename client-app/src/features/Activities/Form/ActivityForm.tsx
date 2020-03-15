@@ -1,9 +1,6 @@
-import React, { useState, FormEvent, useContext, useEffect } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Segment, Form, Button, Grid } from 'semantic-ui-react';
-import {
-  IActivityFormValues,
-  ActivityFormValues
-} from '../../../app/models/activity';
+import { ActivityFormValues } from '../../../app/models/activity';
 import ActivityStore from '../../../app/stores/activityStore';
 import { observer } from 'mobx-react-lite';
 import { RouteComponentProps } from 'react-router-dom';
@@ -15,6 +12,27 @@ import { category } from '../../../app/common/form/options/categoryOptions';
 import DateInput from '../../../app/common/form/DateInput';
 import { combineDateAndTime } from '../../../app/common/util/util';
 import { v4 as uuid } from 'uuid';
+import {
+  combineValidators,
+  isRequired,
+  composeValidators,
+  hasLengthGreaterThan
+} from 'revalidate';
+
+const validate = combineValidators({
+  title: isRequired({ message: 'The event title is required.' }),
+  category: isRequired('Category'),
+  description: composeValidators(
+    isRequired('Description'),
+    hasLengthGreaterThan(4)({
+      message: 'Description must have a length of at least 5 characters.'
+    })()
+  ),
+  city: isRequired('City'),
+  venue: isRequired('Venue'),
+  date: isRequired('Date'),
+  time: isRequired('Time')
+});
 
 interface DetailParams {
   id: string;
@@ -29,9 +47,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
     createActivity,
     editActivity,
     submitting,
-    activity: initialFormState,
-    loadActivity,
-    clearActivity
+    loadActivity
   } = activityStore;
 
   const [activity, setActivity] = useState(new ActivityFormValues());
