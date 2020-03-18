@@ -32,6 +32,7 @@ namespace API
             identityBuilder.AddEntityFrameworkStores<DataContext>();
             identityBuilder.AddSignInManager<SignInManager<AppUser>>();
 
+            services.AddAuthentication();
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddDbContext<DataContext>(o => { o.UseSqlite(Configuration.GetConnectionString("DefaultConnection")); });
             services.AddControllers().AddFluentValidation(cfg =>
