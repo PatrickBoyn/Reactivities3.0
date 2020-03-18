@@ -1,5 +1,7 @@
 using System;
+using Domain;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,14 +16,15 @@ namespace API
         {
             IHost host = CreateHostBuilder(args).Build();
 
-            using(IServiceScope scope = host.Services.CreateScope())
+            using (IServiceScope scope = host.Services.CreateScope())
             {
                 IServiceProvider services = scope.ServiceProvider;
                 try
                 {
                     DataContext context = services.GetRequiredService<DataContext>();
+                    UserManager<AppUser> manager = services.GetRequiredService<UserManager<AppUser>>();
                     context.Database.Migrate();
-                    Seed.SeedData(context);
+                    Seed.SeedData(context, manager).Wait();
                 }
                 catch (Exception e)
                 {
