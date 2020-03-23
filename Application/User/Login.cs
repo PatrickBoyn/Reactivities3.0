@@ -2,6 +2,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Application.Errors;
+using Application.Interfaces;
 using Domain;
 using FluentValidation;
 using MediatR;
@@ -28,18 +29,20 @@ namespace Application.User
 
         public class Handler : IRequestHandler<Query, User>
         {
-            private readonly UserManager<User> _userManager;
-            private readonly SignInManager<User> _signIn;
+            private readonly UserManager<AppUser> _userManager;
+            private readonly SignInManager<AppUser> _signIn;
+            private readonly IJwtGenerator _jwtGenerator;
 
-            public Handler(UserManager<User> userManager, SignInManager<User> signIn)
+            public Handler(UserManager<AppUser> userManager, SignInManager<AppUser> signIn, IJwtGenerator jwtGenerator)
             {
+                _jwtGenerator = jwtGenerator;
                 _signIn = signIn;
                 _userManager = userManager;
             }
 
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
-                User user = await _userManager.FindByEmailAsync(request.Email);
+                AppUser user = await _userManager.FindByEmailAsync(request.Email);
 
                 if (user == null)
                 {
@@ -54,9 +57,9 @@ namespace Application.User
                     return new User
                     {
                         DisplayName = user.DisplayName,
-                        Token = "This will be a token",
-                        UserName = user.UserName,
-                        Image = null
+                            Token = _jwtGenerator.CreateToken(user),
+                            UserName = user.UserName,
+                            Image = null
                     };
                 }
 
