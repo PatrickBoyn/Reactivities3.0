@@ -16,6 +16,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Persistence;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace API
 {
@@ -50,7 +52,11 @@ namespace API
             });
             services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddDbContext<DataContext>(o => { o.UseSqlite(Configuration.GetConnectionString("DefaultConnection")); });
-            services.AddControllers().AddFluentValidation(cfg =>
+            services.AddControllers(o =>
+            {
+                AuthorizationPolicy policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                o.Filters.Add(new AuthorizeFilter(policy));
+            }).AddFluentValidation(cfg =>
             {
                 cfg.RegisterValidatorsFromAssemblyContaining<Create>();
             });
