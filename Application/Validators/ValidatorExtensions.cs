@@ -13,11 +13,11 @@ namespace Application.Validators
                 .Matches("[A-Z]")
                 .WithMessage("Password must contain 1 uppercase letter.")
                 .Matches("[a-z]")
-                .WithMessage("Password must contain at least 1 lower case letter.")
+                .WithMessage("Password must have at least 1 lowercase character.")
                 .Matches("[0-9]")
                 .WithMessage("Password must contain at least 1 number.")
-                .Matches("^a-zA-Z0-9")
-                .WithMessage("Password must contain non alpha numeric characters, like + ? or *.");
+                .Matches("[^a-zA-Z0-9]")
+                .WithMessage("Password must contain one non letter or number, like  +, . or ?.");
             return options;
         }
     }
