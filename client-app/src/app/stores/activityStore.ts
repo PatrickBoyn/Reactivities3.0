@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 configure({ enforceActions: 'always' });
 
-class ActivityStore {
+export default class ActivityStore {
   @observable activityRegistry = new Map();
   @observable loadingInitial = false;
   @observable activity: IActivity | null = null;
@@ -148,4 +148,3 @@ class ActivityStore {
   };
 }
 
-export default createContext(new ActivityStore());
